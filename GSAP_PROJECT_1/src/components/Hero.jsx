@@ -67,6 +67,7 @@ const Hero = () => {
 
   return (
     <>
+    {/* ~~ HERO SECTIOm */}
       <section id="hero" className="noisy">
         <h1 className="title">MOJITO</h1>
         <img
