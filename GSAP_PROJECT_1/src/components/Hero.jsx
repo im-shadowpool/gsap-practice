@@ -67,7 +67,7 @@ const Hero = () => {
   return (
     <>
       {/* Section 1 */}
-      <section id="hero" className="noisy">
+      <section  id="hero" className="noisy">
         <h1 className="title">MOJITO</h1>
         <img
           src="/images/hero-left-leaf.png"
