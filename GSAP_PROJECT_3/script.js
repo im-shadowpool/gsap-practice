@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     splitTextByContainer.push(containerSplits);
   });
 
+
   //
   const container = document.querySelector(".container");
   const menuToggleBtn = document.querySelector(".menu-toggle-btn");
@@ -44,7 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let isMenuOpen = false;
   let isAnimating = false;
   menuToggleBtn.addEventListener("click", () => {
-    if (!isAnimating) return;
+    if (isAnimating) return;
+
     if (!isMenuOpen) {
       isAnimating = true;
       lenis.stop();
@@ -121,4 +123,69 @@ document.addEventListener("DOMContentLoaded", () => {
       isMenuOpen = false;
     }
   });
+
+// 
+const menuImage = document.querySelector('.menu-media-content img');
+const menuLinks = document.querySelectorAll('.menu-link a');
+
+// Store original image
+const defaultSrc = menuImage.src;
+
+menuLinks.forEach(link => {
+  link.addEventListener('mouseenter', () => {
+    const newSrc = link.getAttribute('data-img');
+    if (!newSrc || menuImage.src.includes(newSrc)) return;
+
+    // Highlight hovered link
+    menuLinks.forEach(l => {
+      l.style.opacity = l === link ? "1" : "0.3";
+    });
+
+    // Fade-out + slight zoom
+    gsap.to(menuImage, {
+      opacity: 0.2,
+      scale: 1.05,
+      duration: 0.3,
+      ease: "power2.inOut",
+      onComplete: () => {
+        menuImage.src = newSrc;
+
+        // Fade-in with reset scale
+        gsap.fromTo(
+          menuImage,
+          { opacity: 0, scale: 1.05 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.5,
+            ease: "power2.inOut"
+          }
+        );
+      }
+    });
+  });
+
+  link.addEventListener('mouseleave', () => {
+    // Reset opacity for all links
+    menuLinks.forEach(l => l.style.opacity = "1");
+
+    // Revert image to original
+    gsap.to(menuImage, {
+      opacity: 0.2,
+      duration: 0.3,
+      scale: 1.03,
+      onComplete: () => {
+        menuImage.src = defaultSrc;
+        gsap.to(menuImage, {
+          opacity: 1,
+          scale: 1,
+          duration: 0.4,
+          ease: "power2.out"
+        });
+      }
+    });
+  });
+});
+
+
 });
