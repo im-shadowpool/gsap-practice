@@ -1,2 +1,29 @@
 @import "tailwindcss";
 
+.section-1 {
+    /* background-image: url('/noise.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; */
+    min-height: 100vh;
+    background-color: #000F1D;
+
+    /* background-blend-mode: multiply; */
+}
+
+.section-1::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('/noise.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.3;
+    z-index: 0;
+}
+
+main section {
+    padding: 120px 24px;
+    min-height: 100vh;
+}
